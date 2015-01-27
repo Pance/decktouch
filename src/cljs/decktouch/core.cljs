@@ -9,9 +9,18 @@
 
 ;; -------------------------
 ;; Views
+(defn card-in-list [card]
+  [:li
+   (str card)])
+
+(defn card-list [cards]
+  [:ul
+   (for [card cards]
+     ^{:key card} (card-in-list (:name card)))])
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
+   [:div [card-list @card-data/cards]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
 (defn about-page []
