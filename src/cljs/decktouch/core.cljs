@@ -7,11 +7,20 @@
               [decktouch.card-data :as card-data])
     (:import goog.History))
 
+(defn get-card-input-value []
+  (.-value (.getElementById js/document "the-input")))
 ;; -------------------------
 ;; Views
 (defn card-in-list [card]
   [:li
    (str card)])
+
+(defn card-input []
+  [:form {:on-submit #(do
+                       (swap! card-data/cards (conj @card-data/cards)
+                                              (get-card-input-value))
+                       false)}
+   [:input#the-input {:type "text"}]])
 
 (defn card-list [cards]
   [:ul
