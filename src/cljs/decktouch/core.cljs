@@ -7,6 +7,8 @@
               [decktouch.card-data :as card-data])
     (:import goog.History))
 
+(def the-cards (atom card-data/cards))
+
 (defn get-card-input-value []
   (.-value (.getElementById js/document "the-input")))
 ;; -------------------------
@@ -16,9 +18,10 @@
    (str card)])
 
 (defn card-input []
-  [:form {:on-submit #(do
-                       (swap! card-data/cards (conj @card-data/cards)
-                                              (get-card-input-value))
+  [:form {:onSubmit #(do
+                       (swap! the-cards conj
+                                             {:name (get-card-input-value)})
+                       (.log js/console (str @the-cards))
                        false)}
    [:input#the-input {:type "text"}]])
 
@@ -29,7 +32,8 @@
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
-   [:div [card-list @card-data/cards]]
+   [:div (card-input)]
+   [:div [card-list @the-cards]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
 (defn about-page []
