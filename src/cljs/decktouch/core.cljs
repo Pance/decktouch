@@ -9,8 +9,7 @@
 
 (def the-cards (atom card-data/cards))
 
-(defn get-card-input-value []
-  (.-value (.getElementById js/document "the-input")))
+
 ;; -------------------------
 ;; Views
 (defn card-in-list [card]
@@ -18,12 +17,20 @@
    (str card)])
 
 (defn card-input []
-  [:form {:onSubmit #(do
-                       (swap! the-cards conj
-                                             {:name (get-card-input-value)})
-                       (.log js/console (str @the-cards))
-                       false)}
-   [:input#the-input {:type "text"}]])
+  (let [get-val #(.-value (.getElementById js/document "the-input"))
+        reset-input #(set! (.-value (.getElementById js/document
+                                                       "the-input"))
+                           "")
+        save #(let [v (-> (get-val) str clojure.string/trim)]
+                (do
+                  (if-not (empty? v)
+                    (do
+                      (swap! the-cards conj {:name v})
+                      (reset-input)))
+                  false))]
+    [:form {:onSubmit #(do
+                         (save))}
+     [:input#the-input {:type "text"}]]))
 
 (defn card-list [cards]
   [:ul
