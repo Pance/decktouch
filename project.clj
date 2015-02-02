@@ -44,7 +44,9 @@
   :cljsbuild {:builds {:app {:source-paths ["src/cljs"]
                              :compiler {:output-to     "resources/public/js/app.js"
                                         :output-dir    "resources/public/js/out"
-                                        :externs       ["react/externs/react.js"]
+                                        :externs       ["react/externs/react.js"
+                                                        "resources/public/js/jquery-ui.js"
+                                                        "resources/public/js/jquery-2.1.3.min.js"]
                                         :optimizations :none
                                         :pretty-print  true}}}}
 
