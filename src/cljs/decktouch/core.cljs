@@ -4,33 +4,18 @@
               [secretary.core :as secretary :include-macros true]
               [goog.events :as events]
               [goog.history.EventType :as EventType]
-              [decktouch.card-data :as card-data])
+              [decktouch.card-data :as card-data]
+              [decktouch.bloodhound :as bloodhound]
+              [decktouch.card-input :as card-input])
     (:import goog.History))
 
 (def the-cards (atom card-data/cards))
-
 
 ;; -------------------------
 ;; Views
 (defn card-in-list [card]
   [:li
    (str card)])
-
-(defn card-input []
-  (let [get-val #(.-value (.getElementById js/document "the-input"))
-        reset-input #(set! (.-value (.getElementById js/document
-                                                       "the-input"))
-                           "")
-        save #(let [v (-> (get-val) str clojure.string/trim)]
-                (do
-                  (if-not (empty? v)
-                    (do
-                      (swap! the-cards conj {:name v})
-                      (reset-input)))
-                  false))]
-    [:form {:onSubmit #(do
-                         (save))}
-     [:input#the-input {:type "text"}]]))
 
 (defn card-list [cards]
   [:ul
@@ -39,7 +24,7 @@
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
-   [:div (card-input)]
+   [:div [card-input/component the-cards]]
    [:div [card-list @the-cards]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
