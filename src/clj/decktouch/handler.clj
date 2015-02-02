@@ -5,10 +5,15 @@
             [ring.middleware.defaults :refer [site-defaults wrap-defaults]]
             [selmer.parser :refer [render-file]]
             [environ.core :refer [env]]
-            [prone.middleware :refer [wrap-exceptions]]))
+            [prone.middleware :refer [wrap-exceptions]]
+            [decktouch.mtg-card-master :as mtg-card-master]
+            [clojure.data.json :as json]))
 
 (defroutes routes
   (GET "/" [] (render-file "templates/index.html" {:dev (env :dev?)}))
+  (GET "/data/input/:query" [query]
+       (json/write-str
+         (mtg-card-master/get-cards-matching-query query)))
   (resources "/")
   (not-found "Not Found"))
 
