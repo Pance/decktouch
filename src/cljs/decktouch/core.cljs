@@ -5,7 +5,6 @@
               [goog.events :as events]
               [goog.history.EventType :as EventType]
               [decktouch.card-data :as card-data]
-              [decktouch.bloodhound :as bloodhound]
               [decktouch.card-input :as card-input])
     (:import goog.History))
 
