@@ -10,7 +10,7 @@
                  [reagent-forms "0.3.9"]
                  [reagent-utils "0.1.2"]
                  [secretary "1.2.1"]
-                 [org.clojure/clojurescript "0.0-2665" :scope "provided"]
+                 [org.clojure/clojurescript "0.0-2760" :scope "provided"]
                  [com.cemerick/piggieback "0.1.4"]
                  [weasel "0.5.0"]
                  [ring "1.3.2"]
