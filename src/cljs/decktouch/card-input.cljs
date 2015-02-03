@@ -1,5 +1,6 @@
 (ns decktouch.card-input
-  (:require [reagent.core :as reagent :refer [atom]]))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [ajax.core :refer [GET]]))
 
 (def llist
      [{:name "foo"}
