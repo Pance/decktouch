@@ -20,7 +20,8 @@
                  [selmer "0.7.9"]
                  [environ "1.0.0"]
                  [leiningen "2.5.0"]
-                 [figwheel "0.1.6-SNAPSHOT"]]
+                 [figwheel "0.1.6-SNAPSHOT"]
+                 [cljs-ajax "0.3.9"]]
 
   :plugins [
             [lein-cljsbuild "1.0.4"]
