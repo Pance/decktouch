@@ -15,5 +15,5 @@
   "Return a list of maps of strings of card names that match the query for the card input autocomplete"
   [query]
   (let [match-query (partial match query)]
-      (map (fn [thing] {:cardName thing})
-        (filter match-query card-names))))
+    (map (fn [thing] (str thing))
+      (filter match-query card-names))))
