@@ -2,11 +2,6 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [ajax.core :refer [GET]]))
 
-(def llist
-     [{:name "foo"}
-      {:name "bar"}
-      {:name "lol"}])
-
 (defn card-input [the-cards]
   (let [get-val #(.-value (.getElementById js/document "the-input"))
         reset-input #(set! (.-value (.getElementById js/document
@@ -26,9 +21,13 @@
         [:input#the-input {:type "text"}]]]))
 
 (defn ^:export card-input-did-mount []
-  (let [things (map :name llist)]
+  (let [query-card-master
+        (fn [request response]
+          (let [query-url (str "../data/input/" (.-term request))]
+            (GET query-url {:handler #(response (.parse js/JSON %))})))]
     (.autocomplete (js/$ "#the-input")
-                   (cljs.core/js-obj "source" (clj->js things)))))
+                   (cljs.core/js-obj "source" query-card-master
+                                     "minLength" 2))))
 
 (defn component [the-cards]
   (reagent/create-class {:render #(card-input the-cards)
