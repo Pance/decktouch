@@ -17,9 +17,12 @@
    (str card)])
 
 (defn card-list [cards]
-  [:ul
-   (for [card cards]
-     ^{:key card} (card-in-list (:name card)))])
+  (if (empty? cards)
+    [:span "Add some cards!"]
+    ;; else
+    [:ul
+     (for [card cards]
+       ^{:key card} (card-in-list (:name card)))]))
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
