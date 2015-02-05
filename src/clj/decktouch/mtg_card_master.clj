@@ -17,3 +17,8 @@
   (let [match-query (partial match query)]
     (map (fn [thing] (str thing))
       (filter match-query card-names))))
+
+(defn get-card-info
+  "Given a card name, return a map containing all the info for the card"
+  [card-name]
+  (mtg-cards card-name))
