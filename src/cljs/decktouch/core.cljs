@@ -1,12 +1,12 @@
 (ns decktouch.core
-    (:require [reagent.core :as reagent :refer [atom]]
-              [reagent.session :as session]
-              [secretary.core :as secretary :include-macros true]
-              [goog.events :as events]
-              [goog.history.EventType :as EventType]
-              [decktouch.card-data :as card-data]
-              [decktouch.card-input :as card-input])
-    (:import goog.History))
+  (:require [reagent.core :as reagent :refer [atom]]
+            [reagent.session :as session]
+            [secretary.core :as secretary :include-macros true]
+            [goog.events :as events]
+            [goog.history.EventType :as EventType]
+            [decktouch.card-data :as card-data]
+            [decktouch.card-input :as card-input])
+  (:import goog.History))
 
 (def the-cards (atom card-data/cards))
 
