@@ -26,3 +26,6 @@
 (def app
   (let [handler (wrap-reload (wrap-params routes site-defaults))]
     (if (env :dev?) (wrap-reload (wrap-exceptions handler)) handler)))
+
+(defonce server
+  (jetty/run-jetty app {:port 8080}))
