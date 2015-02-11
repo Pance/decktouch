@@ -2,17 +2,18 @@
   (:require [reagent.core :as reagent :refer [atom]]
             [ajax.core :refer [GET]]))
 
+(defn reset-input! []
+  (set! (.-value (.getElementById js/document "the-input"))
+        ""))
+
 (defn card-input [the-cards]
   (let [get-val #(.-value (.getElementById js/document "the-input"))
-        reset-input #(set! (.-value (.getElementById js/document
-                                                       "the-input"))
-                           "")
         save #(let [v (-> (get-val) str clojure.string/trim)]
                 (do
                   (if-not (empty? v)
                     (do
                       (swap! the-cards conj {:name v})
-                      (reset-input)))
+                      (reset-input!)))
                   false))]
     [:div.ui-widget
       [:form {:onSubmit #(do
