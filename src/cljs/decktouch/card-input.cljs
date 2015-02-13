@@ -1,5 +1,6 @@
 (ns decktouch.card-input
   (:require [reagent.core :as reagent :refer [atom]]
+            [decktouch.card-data :refer [add-card-to-list!]]
             [ajax.core :refer [GET]]))
 
 (defn reset-input! []
@@ -12,7 +13,7 @@
                 (do
                   (if-not (empty? v)
                     (do
-                      (swap! the-cards conj {:name v})
+                      (add-card-to-list! v)
                       (reset-input!)))
                   false))]
     [:div.ui-widget
