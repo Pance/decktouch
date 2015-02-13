@@ -1,4 +1,5 @@
-(ns decktouch.card-data)
+(ns decktouch.card-data
+  (:require [reagent.core :as reagent :refer [atom]]))
 
 (defn get-card-list-from-storage []
   "Get the list of cards from localStorage, or [] if it is empty"
@@ -8,4 +9,4 @@
       []
       (map (fn [n] {:name n}) (js->clj (.parse js/JSON list))))))
 
-(def cards (get-card-list-from-storage))
+(def card-list (atom (get-card-list-from-storage)))

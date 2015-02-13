@@ -1,5 +1,5 @@
 (ns decktouch.core
-  (:require [reagent.core :as reagent :refer [atom]]
+  (:require [reagent.core :as reagent]
             [reagent.session :as session]
             [secretary.core :as secretary :include-macros true]
             [goog.events :as events]
@@ -8,7 +8,6 @@
             [decktouch.card-input :as card-input])
   (:import goog.History))
 
-(def the-cards (atom card-data/cards))
 
 ;; -------------------------
 ;; Views
@@ -26,8 +25,8 @@
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
-   [:div [card-input/component the-cards]]
-   [:div [card-list @the-cards]]
+   [:div [card-input/component card-data/card-list]]
+   [:div [card-list @card-data/card-list]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
 (defn about-page []
