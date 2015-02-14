@@ -21,7 +21,8 @@
                  [environ "1.0.0"]
                  [leiningen "2.5.0"]
                  [figwheel "0.1.6-SNAPSHOT"]
-                 [cljs-ajax "0.3.9"]]
+                 [cljs-ajax "0.3.9"]
+                 [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
   :plugins [
             [lein-cljsbuild "1.0.4"]
