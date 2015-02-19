@@ -21,7 +21,7 @@
     ;; else
     [:ul
      (for [card cards]
-       ^{:key card} (card-in-list (:name card)))]))
+       ^{:key card} (card-in-list (get card "name")))]))
 
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]

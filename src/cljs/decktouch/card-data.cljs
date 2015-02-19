@@ -10,7 +10,7 @@
         list (.getItem js/localStorage key)]
     (if (undefined? list)
       []
-      (map (fn [n] {:name n}) (js->clj (.parse js/JSON list))))))
+      (map (fn [n] {"name" n}) (js->clj (.parse js/JSON list))))))
 
 (def card-list (atom (get-card-list-from-storage)))
 
@@ -27,7 +27,7 @@
 
 (defn add-card-to-list! [card-name]
   (do
-    (swap! card-list conj {:name card-name})
+    (swap! card-list conj {"name" card-name})
     (go
       (let [response (<! (<lookup-card-data card-name))]
         (.log js/console response)))))
