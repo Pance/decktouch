@@ -27,9 +27,21 @@
                                                     status-text)))})
     c))
 
+(defn add-more-card-data [list-o-cards card-data]
+  "Return a vector based on list-o-cards but every item in
+   list-o-cards with a matching 'name' value as card-data
+   will be merged with card-data"
+  (into []
+        (for [c list-o-cards]
+          (do
+          (if (= (get card-data "name") (get c "name"))
+            card-data
+            c)))))
+
 (defn add-card-to-list! [card-name]
   (do
     (swap! card-list conj {"name" card-name})
     (go
-      (let [response (<! (<lookup-card-data card-name))]
-        (.log js/console response)))))
+      (let [response (js->clj (.parse js/JSON (<! (<lookup-card-data card-name))))]
+        (swap! card-list add-more-card-data response)
+        (.log js/console (str @card-list))))))
