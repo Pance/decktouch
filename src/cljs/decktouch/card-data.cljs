@@ -12,7 +12,9 @@
       []
       (map (fn [n] {"name" n}) (js->clj (.parse js/JSON list))))))
 
-(def card-list (atom (get-card-list-from-storage)))
+;; This collection is a vector of maps of strings to strings
+;; [ {"a" "z"} ]
+(def card-list (atom (into [] (get-card-list-from-storage))))
 
 (defn <lookup-card-data [card-name]
   (let [c (chan)]
