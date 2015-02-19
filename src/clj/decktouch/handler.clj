@@ -19,7 +19,8 @@
          (mtg-card-master/get-cards-matching-query query)))
   (POST "/data/card" request
         (let [card-name ((request :params) "card-name")]
-          (str (mtg-card-master/get-card-info card-name))))
+          (json/write-str
+            (mtg-card-master/get-card-info card-name))))
   (resources "/")
   (not-found "Not Found"))
 
