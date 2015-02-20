@@ -37,7 +37,7 @@
 
   :uberjar-name "decktouch.jar"
 
-  :clean-targets ^{:protect false} ["resources/public/js"]
+  :clean-targets ^{:protect false} ["resources/public/js/app.js"]
 
   :minify-assets
   {:assets
