@@ -54,7 +54,7 @@
           :externs    ["react/externs/react.js"
                        "resources/public/js/jquery-ui.js"
                        "resources/public/js/jquery-2.1.3.min.js"]
-          :optimizations :none
+          :optimizations :whitespace
           :pretty-print  true}}}}
 
   :profiles {
@@ -83,8 +83,7 @@
           :builds {
             :app {
               :source-paths ["env/dev/cljs"]
-              :compiler {:output-to "resources/public/js/app.js"
-              :source-map true}}}}}
+              :compiler {:output-to "resources/public/js/app.js"}}}}}
 
     :uberjar {
       :hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
