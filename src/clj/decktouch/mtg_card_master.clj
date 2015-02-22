@@ -8,7 +8,7 @@
 (defn match
   "Returns true if query is a substring in string"
   [query string]
-  (some? (re-matches (re-pattern (str "(?i)" query ".*"))
+  (some? (re-matches (re-pattern (str "(?i)" ".*" query ".*"))
                     string)))
 
 (defn find-cards-matching-query-in-names [names query]
