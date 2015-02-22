@@ -11,12 +11,16 @@
   (some? (re-matches (re-pattern (str "(?i)" query ".*"))
                     string)))
 
+(defn find-cards-matching-query-in-names [names query]
+  (let [match-query (partial match query)]
+    (map (fn [thing] (str thing))
+         (filter match-query names))))
+
 (defn get-cards-matching-query
   "Return a list of maps of strings of card names that match the query for the card input autocomplete"
   [query]
-  (let [match-query (partial match query)]
-    (map (fn [thing] (str thing))
-      (filter match-query card-names))))
+  (let [query-args (clojure.string/split query #"\s")]
+    (reduce find-cards-matching-query-in-names card-names query-args)))
 
 (defn get-card-info
   "Given a card name, return a map containing all the info for the card"
