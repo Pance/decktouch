@@ -23,9 +23,14 @@
      (for [card cards]
        ^{:key card} (card-in-list (get card "name")))]))
 
+
+(defn card-counter [cards]
+  [:h3 (count cards) " cards"])
+
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
-   [:div [card-input/component card-data/card-list]]
+   [:div [card-input/component card-data/card-list]
+         [card-counter @card-data/card-list]]
    [:div [card-list @card-data/card-list]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
