@@ -23,6 +23,23 @@
      (for [card cards]
        ^{:key card} (card-in-list (get card "name")))]))
 
+(defn record-mana-freq [mana-map mana]
+  (if (contains? mana-map mana)
+    (assoc mana-map mana (inc (get mana-map mana)))
+    mana-map))
+
+(defn get-mana-symbol-counts [cards]
+  (let [mana-costs (reduce str (map #(get % "manaCost") cards))]
+    (reduce record-mana-freq {"R" 0 "G" 0 "U" 0 "W" 0 "B" 0} mana-costs)))
+
+(defn mana-cost-widget [cards]
+  (let [mana-symbol-counts (get-mana-symbol-counts cards)
+        sorted-mana-symbol-counts
+            (into (sorted-map-by (fn [key1 key2]
+                                   (compare [(get mana-symbol-counts key2) key2]
+                                            [(get mana-symbol-counts key1) key1])))
+                  mana-symbol-counts)]
+    [:div (str sorted-mana-symbol-counts)]))
 
 (defn card-counter [cards]
   [:h3 (count cards) " cards"])
@@ -30,7 +47,8 @@
 (defn home-page []
   [:div [:h2 "Welcome to decktouch"]
    [:div [card-input/component card-data/card-list]
-         [card-counter @card-data/card-list]]
+         [card-counter @card-data/card-list]
+         [mana-cost-widget @card-data/card-list]]
    [:div [card-list @card-data/card-list]]
    [:div [:a {:href "#/about"} "go to about page"]]])
 
