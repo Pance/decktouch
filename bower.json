@@ -1,0 +1,22 @@
+{
+  "name": "decktouch",
+  "version": "0.0.0",
+  "description": "build card decks fast",
+  "authors": [
+    "pance"
+  ],
+  "homepage": "decktouch.com",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "resources/public",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.2",
+    "jquery": "~2.1.3"
+  }
+}
