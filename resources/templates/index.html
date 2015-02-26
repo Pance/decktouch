@@ -7,19 +7,17 @@
     {% style "bootstrap/dist/css/bootstrap-theme.min.css" %}
   </head>
   <body>
-    <div class="container-fluid">
-      <div id="app"></div>
-      {% script "jquery/dist/jquery.min.js" %}
-      {% script "jquery-ui/jquery-ui.min.js" %}
-      {% script "bootstrap/dist/js/bootstrap.min.js" %}
-      {% if dev %}
-        <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.js"></script>
-        {% script "js/app.js" %}
-        <script type="text/javascript">goog.require("decktouch.dev");</script>
-      {% else %}
-        <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.min.js"></script>
-        {% script "js/app.js" %}
-      {% endif %}
-    </div>
+    <div id="app"> </div>
+    {% script "jquery/dist/jquery.min.js" %}
+    {% script "jquery-ui/jquery-ui.min.js" %}
+    {% script "bootstrap/dist/js/bootstrap.min.js" %}
+    {% if dev %}
+      <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.js"></script>
+      {% script "js/app.js" %}
+      <script type="text/javascript">goog.require("decktouch.dev");</script>
+    {% else %}
+      <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.11.2/react.min.js"></script>
+      {% script "js/app.js" %}
+    {% endif %}
   </body>
 </html>
