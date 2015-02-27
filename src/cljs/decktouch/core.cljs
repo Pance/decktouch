@@ -60,7 +60,7 @@
    [:div [:a {:href "#/"} "go to the home page"]]])
 
 (defn navbar []
-  [:nav.navbar.navbar-fixed-top.navbar-inverse.text-center
+  [:nav.navbar.navbar-fixed-top.navbar-inverse
     [:a.navbar-brand {:href "#"}
       "Decktouch"]
     [:div#navbar.collapse.navbar-collapse
