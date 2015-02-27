@@ -86,11 +86,10 @@
                     [mana-cost-widget @card-data/card-list]
                     [:br]]
           [:div.row
-                    [:p.text-right "XX Spells"]
-                    [:p.text-right "YY Creatures"]
-                    [:p.text-right "ZZ Lands"]]]
-        [:div.row [card-list @card-data/card-list]]
-        [:div ]]])
+                    [:p.text-right (str (count (remove-cards-by-type @card-data/card-list "Creature"))) " Non-creature Spells"]
+                    [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Creature"))) " Creatures"]
+                    [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Land"))) " Lands"]]]
+        [:div.row [card-list @card-data/card-list]]]])
 
 (defn about-page []
   [:div [:h2 "About decktouch"]
