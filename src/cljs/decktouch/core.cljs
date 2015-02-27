@@ -62,7 +62,10 @@
 (defn navbar []
   [:nav.navbar.navbar-fixed-top.navbar-inverse.text-center
     [:a.navbar-brand {:href "#"}
-      "Decktouch"]])
+      "Decktouch"]
+    [:div#navbar.collapse.navbar-collapse
+      [:ul.nav.navbar-nav
+        [:li [:a {:href "#/about"} "go to about page"]]]]])
 
 (defn current-page []
   [:div
