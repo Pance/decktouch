@@ -67,18 +67,27 @@
     [:div (str sorted-mana-symbol-counts)]))
 
 (defn card-counter [cards]
-  [:h3 (count cards) " cards"])
+  [:h3 [:p.text-right (count cards) " cards"]])
 
 (defn home-page []
   [:div.container-fluid
-   [:div.row
-   [:div.col-md-offset-3.col-md-3
-     [:br] [:br] [:br] [:br] [:br]
-     [:div [card-input/component card-data/card-list]
-           [card-counter @card-data/card-list]
-           [mana-cost-widget @card-data/card-list]]
-     [:div [card-list @card-data/card-list]]
-     [:div [:a {:href "#/about"} "go to about page"]]]]])
+    [:br] [:br] [:br] [:br] [:br]
+      [:div.row
+        [:div.col-md-offset-4.col-md-6
+          [card-input/component card-data/card-list]]]
+      [:div.row
+        [:div.col-md-offset-2.col-md-2
+          [:div.row
+                    [card-counter @card-data/card-list]]
+          [:div.row
+                    [mana-cost-widget @card-data/card-list]
+                    [:br]]
+          [:div.row
+                    [:p.text-right "XX Spells"]
+                    [:p.text-right "YY Creatures"]
+                    [:p.text-right "ZZ Lands"]]]
+        [:div.row [card-list @card-data/card-list]]
+        [:div ]]])
 
 (defn about-page []
   [:div [:h2 "About decktouch"]
