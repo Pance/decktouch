@@ -15,13 +15,38 @@
   [:li
    (str card)])
 
+(defn is-card-of-type? [card type]
+  (contains? (set (get card "types")) type))
+
+(defn filter-cards-by-type [cards type]
+  (filter (fn [card] (let [c (js->clj card)]
+                       (is-card-of-type? c type))) cards))
+
+(defn card-type-list [cards type]
+  (let [filtered-cards-by-type (filter-cards-by-type cards type)]
+    (if (not-empty filtered-cards-by-type)
+      [:div
+        [:p type]
+        [:ul
+          (for [card (filter-cards-by-type cards type)]
+               ^{:key card} (card-in-list (get card "name")))]])))
+
+
 (defn card-list [cards]
   (if (empty? cards)
-    [:span "Add some cards!"]
+    [:strong "Add some cards!"]
     ;; else
-    [:ul
-     (for [card cards]
-       ^{:key card} (card-in-list (get card "name")))]))
+    [:div.row
+      [:div.col-md-2
+        [card-type-list cards "Creature"]
+        [card-type-list cards "Land"]]
+      [:div.col-md-2
+        [card-type-list cards "Planeswalker"]
+        [card-type-list cards "Instant"]
+        [card-type-list cards "Sorcery"]
+        (let [noncreature-cards (filter #(not (is-card-of-type? % "Creature")) cards)]
+          [card-type-list noncreature-cards "Enchantment" {:not "Creature"}])
+        [card-type-list cards "Artifact"]]]))
 
 (defn record-mana-freq [mana-map mana]
   (if (contains? mana-map mana)
