@@ -22,6 +22,9 @@
   (filter (fn [card] (let [c (js->clj card)]
                        (is-card-of-type? c type))) cards))
 
+(defn remove-cards-by-type [cards type]
+  (filter #(not (is-card-of-type? % type)) cards))
+
 (defn card-type-list [cards type]
   (let [filtered-cards-by-type (filter-cards-by-type cards type)]
     (if (not-empty filtered-cards-by-type)
@@ -44,7 +47,7 @@
         [card-type-list cards "Planeswalker"]
         [card-type-list cards "Instant"]
         [card-type-list cards "Sorcery"]
-        (let [noncreature-cards (filter #(not (is-card-of-type? % "Creature")) cards)]
+        (let [noncreature-cards (remove-cards-by-type cards "Creature")]
           [card-type-list noncreature-cards "Enchantment" {:not "Creature"}])
         [card-type-list cards "Artifact"]]]))
 
