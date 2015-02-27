@@ -45,19 +45,29 @@
   [:h3 (count cards) " cards"])
 
 (defn home-page []
-  [:div [:h2 "Welcome to decktouch"]
-   [:div [card-input/component card-data/card-list]
-         [card-counter @card-data/card-list]
-         [mana-cost-widget @card-data/card-list]]
-   [:div [card-list @card-data/card-list]]
-   [:div [:a {:href "#/about"} "go to about page"]]])
+  [:div.container-fluid
+   [:div.row
+   [:div.col-md-offset-3.col-md-3
+     [:br] [:br] [:br] [:br] [:br]
+     [:div [card-input/component card-data/card-list]
+           [card-counter @card-data/card-list]
+           [mana-cost-widget @card-data/card-list]]
+     [:div [card-list @card-data/card-list]]
+     [:div [:a {:href "#/about"} "go to about page"]]]]])
 
 (defn about-page []
   [:div [:h2 "About decktouch"]
    [:div [:a {:href "#/"} "go to the home page"]]])
 
+(defn navbar []
+  [:nav.navbar.navbar-fixed-top.navbar-inverse.text-center
+    [:a.navbar-brand {:href "#"}
+      "Decktouch"]])
+
 (defn current-page []
-  [:div [(session/get :current-page)]])
+  [:div
+    [navbar]
+    [:div [(session/get :current-page)]]])
 
 ;; -------------------------
 ;; Routes
