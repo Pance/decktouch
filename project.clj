@@ -39,11 +39,6 @@
 
   :clean-targets ^{:protect false} ["resources/public/js/app.js"]
 
-  :minify-assets
-  {:assets
-    {"resources/public/css/site.min.css"
-     "resources/public/css/site.css"}}
-
   :cljsbuild {
     :builds {
       :app {
