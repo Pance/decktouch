@@ -12,8 +12,9 @@
 ;; -------------------------
 ;; Views
 
-(defn img [url]
-  (str "<img src='" url "'>"))
+(defn card-img [url]
+  [:img {:src url
+         :style (js-obj "width" "240" "height" "340")}])
 
 (defn card-in-list [card card-id]
   (let [image-name (clojure.string/replace (get card "imageName") #" " "_")
@@ -24,7 +25,7 @@
          :data-placement "bottom"
          :data-html true
          :data-trigger "hover"
-         :title (img image-link)}
+         :title (reagent/render-component-to-string [card-img image-link])}
          (str (get card "name"))]]))
 
 (defn card-in-list-did-mount [card-id]
