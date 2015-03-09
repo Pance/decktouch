@@ -23,6 +23,7 @@
          :data-toggle "tooltip"
          :data-placement "bottom"
          :data-html true
+         :data-trigger "hover"
          :title (img image-link)}
          (str (get card "name"))]]))
 
