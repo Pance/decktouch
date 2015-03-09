@@ -12,15 +12,18 @@
 ;; -------------------------
 ;; Views
 
+(defn img [url]
+  (str "<img src='" url "'>"))
+
 (defn card-in-list [card card-id]
   (let [image-name (clojure.string/replace (get card "imageName") #" " "_")
-        image-link (str "http://mtgimage.com/multiverseid/" image-name ".jpg")]
+        image-link (str "http://mtgimage.com/card/" image-name ".jpg")]
   [:li
     [:a {:id card-id
          :data-toggle "tooltip"
          :data-placement "bottom"
          :data-html true
-         :title [:img {:src image-link}]}
+         :title (img image-link)}
          (str (get card "name"))]]))
 
 (defn card-in-list-did-mount [card-id]
