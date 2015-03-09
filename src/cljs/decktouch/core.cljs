@@ -11,9 +11,26 @@
 
 ;; -------------------------
 ;; Views
-(defn card-in-list [card]
+
+(defn card-in-list [card card-id]
+  (let [image-name (clojure.string/replace (get card "imageName") #" " "_")
+        image-link (str "http://mtgimage.com/multiverseid/" image-name ".jpg")]
   [:li
-   (str card)])
+    [:a {:id card-id
+         :data-toggle "tooltip"
+         :data-placement "bottom"
+         :data-html true
+         :title [:img {:src image-link}]}
+         (str (get card "name"))]]))
+
+(defn card-in-list-did-mount [card-id]
+    (.popover (js/$ (str "#" card-id))))
+
+(defn card-in-list-component [card]
+  (let [card-id (str (clojure.string/replace (get card "imageName") #"\W" "_"))]
+    (reagent/create-class {:render #(card-in-list card card-id)
+                           :component-did-mount #(card-in-list-did-mount card-id)
+                           })))
 
 (defn is-card-of-type? [card type]
   (contains? (set (get card "types")) type))
@@ -32,7 +49,7 @@
         [:p type]
         [:ul
           (for [card (filter-cards-by-type cards type)]
-               ^{:key card} (card-in-list (get card "name")))]])))
+               ^{:key (get card "imageName")} [card-in-list-component card])]])))
 
 
 (defn card-list [cards]
