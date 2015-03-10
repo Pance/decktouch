@@ -8,6 +8,7 @@
             [decktouch.card-input :as card-input])
   (:import goog.History))
 
+(def displayed-card-url (reagent/atom ""))
 
 ;; -------------------------
 ;; Views
@@ -25,7 +26,8 @@
          :data-placement "bottom"
          :data-html true
          :data-trigger "hover"
-         :title (reagent/render-component-to-string [card-img image-link])}
+         :title (reagent/render-component-to-string [card-img image-link])
+         :onClick (fn [] (reset! displayed-card-url image-link))}
          (str (get card "name"))]]))
 
 (defn card-in-list-did-mount [card-id]
@@ -62,11 +64,11 @@
     [:strong "Add some cards!"]
     ;; else
     [:div.row
-      [:div.col-md-2
+      [:div.col-md-6
         [card-type-list cards "Creature"]
         [card-type-list cards "Land"]]
       (let [noncreature-cards (remove-cards-by-type cards "Creature")]
-        [:div.col-md-2
+        [:div.col-md-6
           [card-type-list cards "Planeswalker"]
           [card-type-list cards "Instant"]
           [card-type-list cards "Sorcery"]
@@ -124,7 +126,10 @@
                     [:p.text-right (str (count (remove-cards-by-type @card-data/card-list "Creature"))) " Non-creature Spells"]
                     [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Creature"))) " Creatures"]
                     [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Land"))) " Lands"]]]
-        [:div.row [card-list @card-data/card-list]]]])
+        [:div.col-md-4 [card-list @card-data/card-list]]
+        [:div.col-md-4 (if (clojure.string/blank? @displayed-card-url)
+                         [:div [:b "Click on a card!"]]
+                         (card-img @displayed-card-url))]]])
 
 (defn about-page []
   [:div [:h2 "About decktouch"]
