@@ -65,13 +65,13 @@
       [:div.col-md-2
         [card-type-list cards "Creature"]
         [card-type-list cards "Land"]]
-      [:div.col-md-2
-        [card-type-list cards "Planeswalker"]
-        [card-type-list cards "Instant"]
-        [card-type-list cards "Sorcery"]
-        (let [noncreature-cards (remove-cards-by-type cards "Creature")]
-          [card-type-list noncreature-cards "Enchantment" {:not "Creature"}])
-        [card-type-list cards "Artifact"]]]))
+      (let [noncreature-cards (remove-cards-by-type cards "Creature")]
+        [:div.col-md-2
+          [card-type-list cards "Planeswalker"]
+          [card-type-list cards "Instant"]
+          [card-type-list cards "Sorcery"]
+          [card-type-list noncreature-cards "Enchantment"]
+          [card-type-list noncreature-cards "Artifact"]])]))
 
 (defn record-mana-freq [mana-map mana]
   (if (contains? mana-map mana)
