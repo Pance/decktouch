@@ -35,12 +35,13 @@
         (for [c list-o-cards]
           (do
           (if (= (get card-data "name") (get c "name"))
-            card-data
+            (merge card-data c)
             c)))))
 
 (defn add-card-to-list! [card-name]
   (do
-    (swap! card-list conj {"name" card-name})
+    (swap! card-list conj {"name" card-name
+                           "quantity" 1})
     (go
       (let [response (js->clj (.parse js/JSON (<! (<lookup-card-data card-name))))]
         (swap! card-list add-more-card-data response)
