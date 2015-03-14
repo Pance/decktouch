@@ -3,6 +3,7 @@
   :url ""
 
   :source-paths ["src/clj" "src/cljs"]
+  :test-paths ["test/clj" "test/cljs"]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [com.facebook/react "0.11.2"]
