@@ -1,6 +1,30 @@
 (ns decktouch.mtg-card-master
   (:require [clojure.data.json :as json]))
 
+(defn add-multiverseid-to-card-in-map [mtg-cards {card-name "name" multiv "multiverseId"}]
+  (let [existing-card-map (get mtg-cards card-name)
+        existing-multiv (get existing-card-map "multiverseId")]
+    ;if existing-card is nil or new multiv is less than existing-multiv
+    (if (or
+          (nil? existing-card-map)
+          (< multiv (if (nil? existing-multiv)
+                    0
+                    existing-multiv)))
+      mtg-cards
+      (update-in mtg-cards [card-name]
+                 assoc "multiverseId" multiv))))
+
+(def card-multiverseids
+  (filter #(not (nil? (get % "multiverseId")))
+    (flatten
+      (let [all-sets (json/read-str (slurp "resources/AllSets.json"))]
+        (for [set-code (keys all-sets)]
+          (for [set-card (get (get all-sets set-code) "cards")]
+            {"name"         (set-card "name")
+             "multiverseId" (set-card "multiverseid")}))))))
+
+(def mtg-sets (json/read-str (slurp "resources/AllSets.json")))
+
 (def mtg-cards (json/read-str (slurp "resources/AllCards.json")))
 
 (def card-names (keys mtg-cards))
