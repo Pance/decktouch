@@ -19,7 +19,7 @@
 
 (defn card-in-list [card card-id]
   (let [multiverseId (get card "multiverseId")
-        image-link (str "https://image.deckbrew.com/mtg/multiverseid/" multiverseId ".jpg")]
+        image-link (str "https://api.mtgdb.info/content/hi_res_card_images/" multiverseId ".jpg")]
   [:li
     [:a {:id card-id
          :data-toggle "tooltip"
