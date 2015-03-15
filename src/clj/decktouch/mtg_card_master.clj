@@ -23,9 +23,9 @@
             {"name"         (set-card "name")
              "multiverseId" (set-card "multiverseid")}))))))
 
-(def mtg-sets (json/read-str (slurp "resources/AllSets.json")))
-
-(def mtg-cards (json/read-str (slurp "resources/AllCards.json")))
+(def mtg-cards
+  (let [allcards (json/read-str (slurp "resources/AllCards.json"))]
+    (reduce add-multiverseid-to-card-in-map allcards card-multiverseids)))
 
 (def card-names (keys mtg-cards))
 
