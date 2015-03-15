@@ -18,8 +18,8 @@
          :style (js-obj "width" "240" "height" "340")}])
 
 (defn card-in-list [card card-id]
-  (let [image-name (clojure.string/replace (get card "imageName") #" " "_")
-        image-link (str "http://mtgimage.com/card/" image-name ".jpg")]
+  (let [multiverseId (get card "multiverseId")
+        image-link (str "https://image.deckbrew.com/mtg/multiverseid/" multiverseId ".jpg")]
   [:li
     [:a {:id card-id
          :data-toggle "tooltip"
