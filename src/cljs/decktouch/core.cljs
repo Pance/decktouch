@@ -5,7 +5,8 @@
             [goog.events :as events]
             [goog.history.EventType :as EventType]
             [decktouch.card-data :as card-data]
-            [decktouch.card-input :as card-input])
+            [decktouch.card-input :as card-input]
+            [decktouch.widgets :as widgets])
   (:import goog.History))
 
 (def displayed-card-url (reagent/atom ""))
@@ -58,7 +59,6 @@
           (for [card (filter-cards-by-type cards type)]
                ^{:key (get card "imageName")} [card-in-list-component card])]])))
 
-
 (defn card-list [cards]
   (if (empty? cards)
     [:strong "Add some cards!"]
@@ -75,39 +75,6 @@
           [card-type-list noncreature-cards "Enchantment"]
           [card-type-list noncreature-cards "Artifact"]])]))
 
-(defn record-mana-freq [mana-map mana]
-  (if (contains? mana-map mana)
-    (assoc mana-map mana (inc (get mana-map mana)))
-    mana-map))
-
-(defn get-mana-symbol-counts [cards]
-  (let [mana-costs (reduce str (map #(get % "manaCost") cards))]
-    (reduce record-mana-freq {"R" 0 "G" 0 "U" 0 "W" 0 "B" 0} mana-costs)))
-
-(defn mana-symbol [color number]
-  (let [mana-labels {"B" (fn [n] [:span.label.label-default (str n " " color)])
-                     "U" (fn [n] [:span.label.label-primary (str n " " color)])
-                     "G" (fn [n] [:span.label.label-success (str n " " color)])
-                     "W" (fn [n] [:span.label.label-warning (str n " " color)])
-                     "R" (fn [n] [:span.label.label-danger (str n " " color)])}]
-    ((mana-labels color) number)))
-
-
-(defn mana-cost-widget [cards]
-  (let [mana-symbol-counts (get-mana-symbol-counts cards)
-        sorted-mana-symbol-counts
-            (into (sorted-map-by (fn [key1 key2]
-                                   (compare [(get mana-symbol-counts key2) key2]
-                                            [(get mana-symbol-counts key1) key1])))
-                  mana-symbol-counts)]
-    [:div [:h3.text-right
-            (for [m (keys sorted-mana-symbol-counts)]
-              (let [n (sorted-mana-symbol-counts m)]
-                (if (> n 0)
-                  [mana-symbol m n])))]]))
-
-(defn card-counter [cards]
-  [:h3 [:p.text-right (count cards) " cards"]])
 
 (defn home-page []
   [:div.container-fluid
@@ -118,9 +85,9 @@
       [:div.row
         [:div.col-md-offset-2.col-md-2
           [:div.row
-                    [card-counter @card-data/card-list]]
+                    [widgets/card-counter @card-data/card-list]]
           [:div.row
-                    [mana-cost-widget @card-data/card-list]
+                    [widgets/mana-color-composition @card-data/card-list]
                     [:br]]
           [:div.row
                     [:p.text-right (str (count (remove-cards-by-type @card-data/card-list "Creature"))) " Non-creature Spells"]
