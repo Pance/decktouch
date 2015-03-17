@@ -6,10 +6,10 @@
             [goog.history.EventType :as EventType]
             [decktouch.card-data :as card-data]
             [decktouch.card-input :as card-input]
-            [decktouch.widgets :as widgets])
+            [decktouch.widgets :as widgets]
+            [decktouch.card-display :as card-display])
   (:import goog.History))
 
-(def displayed-card-url (reagent/atom ""))
 
 ;; -------------------------
 ;; Views
@@ -28,7 +28,7 @@
          :data-html true
          :data-trigger "hover"
          :title (reagent/render-component-to-string [card-img image-link])
-         :onClick (fn [] (reset! displayed-card-url image-link))}
+         :onClick (fn [] (reset! card-display/url image-link))}
          (str (get card "name"))]]))
 
 (defn card-in-list-did-mount [card-id]
@@ -94,9 +94,7 @@
                     [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Creature"))) " Creatures"]
                     [:p.text-right (str (count (filter-cards-by-type @card-data/card-list "Land"))) " Lands"]]]
         [:div.col-md-4 [card-list @card-data/card-list]]
-        [:div.col-md-4 (if (clojure.string/blank? @displayed-card-url)
-                         [:div [:b "Click on a card!"]]
-                         (card-img @displayed-card-url))]]])
+        [:div.col-md-4 [card-display/component]]]])
 
 (defn about-page []
   [:div [:h2 "About decktouch"]
