@@ -25,12 +25,9 @@
           [:div.row
                     [widgets/card-counter @card-data/card-list]]
           [:div.row
-                    [widgets/mana-color-composition @card-data/card-list]
-                    [:br]]
+                    [widgets/mana-color-composition @card-data/card-list]]
           [:div.row
-                    [:p.text-right (str (count (card-list/remove-cards-by-type @card-data/card-list "Creature"))) " Non-creature Spells"]
-                    [:p.text-right (str (count (card-list/filter-cards-by-type @card-data/card-list "Creature"))) " Creatures"]
-                    [:p.text-right (str (count (card-list/filter-cards-by-type @card-data/card-list "Land"))) " Lands"]]]
+                    [widgets/card-types @card-data/card-list]]]
         [:div.col-md-4 [card-list/component @card-data/card-list]]
         [:div.col-md-4 [card-display/component]]]])
 

@@ -1,4 +1,5 @@
-(ns decktouch.widgets )
+(ns decktouch.widgets
+  (:require [decktouch.card-list :as card-list]))
 
 (defn count-mana-freq [mana-map mana]
       (if (contains? mana-map mana)
@@ -29,7 +30,15 @@
             (for [m (keys sorted-mana-symbol-counts)]
               (let [n (sorted-mana-symbol-counts m)]
                 (if (> n 0)
-                  [mana-symbol m n])))]]))
+                  [mana-symbol m n])))]
+      [:br]]))
 
 (defn card-counter [cards]
-    [:h3 [:p.text-right (count cards) " cards"]])
+  [:h3 [:p.text-right (count cards) " cards"]])
+
+(defn card-types [cards]
+  [:div
+    [:p.text-right (str (count (card-list/remove-cards-by-type cards "Creature"))) " Non-creature Spells"]
+    [:p.text-right (str (count (card-list/filter-cards-by-type cards "Creature"))) " Creatures"]
+    [:p.text-right (str (count (card-list/filter-cards-by-type cards "Land"))) " Lands"]])
+
