@@ -17,7 +17,9 @@
          :data-trigger "hover"
          :data-content (reagent/render-component-to-string [card-img image-link])
          :onClick (fn [] (reset! card-display/url image-link))}
-         (str (get card "name"))]]))
+        [:small [:span.glyphicon.glyphicon-plus-sign]]
+        [:span (str " " (get card "quantity") " x " (get card "name") "  ")]
+        [:small [:span.glyphicon.glyphicon-remove]]]]))
 
 (defn card-in-list-did-mount [card-id]
     (.popover (js/$ (str "#" card-id))))
@@ -43,7 +45,7 @@
     (if (not-empty filtered-cards-by-type)
       [:div
         [:p type]
-        [:ul
+        [:ul.list-unstyled
           (for [card (filter-cards-by-type cards type)]
                ^{:key (get card "imageName")} [card-in-list-component card])]])))
 
