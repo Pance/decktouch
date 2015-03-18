@@ -15,7 +15,7 @@
          :data-placement "bottom"
          :data-html true
          :data-trigger "hover"
-         :title (reagent/render-component-to-string [card-img image-link])
+         :data-content (reagent/render-component-to-string [card-img image-link])
          :onClick (fn [] (reset! card-display/url image-link))}
          (str (get card "name"))]]))
 
