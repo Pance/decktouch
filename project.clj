@@ -6,12 +6,11 @@
   :test-paths ["test/clj" "test/cljs"]
 
   :dependencies [[org.clojure/clojure "1.6.0"]
-                 [com.facebook/react "0.11.2"]
-                 [reagent "0.4.3"]
+                 [reagent "0.5.0"]
                  [reagent-forms "0.3.9"]
                  [reagent-utils "0.1.2"]
                  [secretary "1.2.1"]
-                 [org.clojure/clojurescript "0.0-2760" :scope "provided"]
+                 [org.clojure/clojurescript "0.0-3126" :scope "provided"]
                  [com.cemerick/piggieback "0.1.4"]
                  [weasel "0.5.0"]
                  [ring "1.3.2"]
@@ -47,8 +46,7 @@
         :compiler {
           :output-to  "resources/public/js/app.js"
           :output-dir "resources/public/js/out"
-          :externs    ["react/externs/react.js"
-                       "resources/public/js/jquery-ui.js"
+          :externs    ["resources/public/js/jquery-ui.js"
                        "resources/public/js/jquery-2.1.3.min.js"]
           :optimizations :whitespace
           :pretty-print  true}}}}
