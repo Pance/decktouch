@@ -38,10 +38,27 @@
             (merge card-data c)
             c)))))
 
-(defn add-card-to-list! [card-name]
+(defn add-card-quantity [cards card-name quantity]
+  (.log js/console (str "cards with name? " (filter #(= (get % "name") card-name) cards)))
+  (if (empty? (filter #(= (get % "name") card-name) cards))
+    ; add a new card
+    (conj cards {"name" card-name
+                 "quantity" quantity})
+    ; increase the quantity of the existing card
+    (for [c cards]
+      (if (= (get c "name") card-name)
+        (assoc c "quantity" (+ quantity (get c "quantity")))
+        c))))
+
+(defn add-card-to-list!
+  "add-card-to-list! card-name
+   or
+   add-card-to-list! card-name quantity"
+  [card-name & quantity]
   (do
-    (swap! card-list conj {"name" card-name
-                           "quantity" 1})
+    (if quantity
+      (swap! card-list add-card-quantity card-name quantity)
+      (swap! card-list add-card-quantity card-name 1))
     (go
       (let [response (js->clj (.parse js/JSON (<! (<lookup-card-data card-name))))]
         (swap! card-list add-more-card-data response)
