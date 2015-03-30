@@ -39,7 +39,6 @@
             c)))))
 
 (defn add-card-quantity [cards card-name quantity]
-  (.log js/console (str "cards with name? " (filter #(= (get % "name") card-name) cards)))
   (if (empty? (filter #(= (get % "name") card-name) cards))
     ; add a new card
     (conj cards {"name" card-name
