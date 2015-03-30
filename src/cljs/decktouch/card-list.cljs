@@ -26,9 +26,8 @@
 
 (defn card-in-list-component [card]
   (let [card-id (str (clojure.string/replace (get card "imageName") #"\W" "_"))]
-    (reagent/create-class {:render #(card-in-list card card-id)
-                           :component-did-mount #(card-in-list-did-mount card-id)
-                           })))
+    (with-meta #(card-in-list % card-id)
+               {:component-did-mount #(card-in-list-did-mount card-id)})))
 
 (defn is-card-of-type? [card type]
   (contains? (set (get card "types")) type))
