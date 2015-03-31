@@ -1,6 +1,7 @@
 (ns decktouch.card-list
   (:require [reagent.core :as reagent]
-            [decktouch.card-display :as card-display]))
+            [decktouch.card-display :as card-display]
+            [decktouch.card-data :as card-data]))
 
 (defn card-img [url]
   [:img {:src url
@@ -10,6 +11,9 @@
   (let [multiverseId (get card "multiverseId")
         image-link (str "https://api.mtgdb.info/content/hi_res_card_images/" multiverseId ".jpg")]
   [:li
+    [:small
+      {:onClick (fn [] (card-data/add-card-to-list! (get card "name") 1))}
+      [:span.glyphicon.glyphicon-plus-sign]]
     [:a {:id card-id
          :data-toggle "tooltip"
          :data-placement "bottom"
@@ -17,9 +21,10 @@
          :data-trigger "hover"
          :data-content (reagent/render-component-to-string [card-img image-link])
          :onClick (fn [] (reset! card-display/url image-link))}
-        [:small [:span.glyphicon.glyphicon-plus-sign]]
-        [:span (str " " (get card "quantity") " x " (get card "name") "  ")]
-        [:small [:span.glyphicon.glyphicon-remove]]]]))
+        [:span (str " " (get card "quantity") " x " (get card "name") "  ")]]
+    [:small
+      {:onClick (fn [] (card-data/add-card-to-list! (get card "name") -1))}
+      [:span.glyphicon.glyphicon-remove]]]))
 
 (defn card-in-list-did-mount [card-id]
     (.popover (js/$ (str "#" card-id))))
