@@ -2,13 +2,13 @@
   (:require [decktouch.card-list :as card-list]))
 
 (defn count-mana-freq [mana-map mana]
-      (if (contains? mana-map mana)
-              (assoc mana-map mana (inc (get mana-map mana)))
-                  mana-map))
+  (if (contains? mana-map mana)
+    (assoc mana-map mana (inc (get mana-map mana)))
+    mana-map))
 
 (defn get-mana-symbol-counts [cards]
-      (let [mana-costs (reduce str (map #(get % "manaCost") cards))]
-              (reduce count-mana-freq {"R" 0 "G" 0 "U" 0 "W" 0 "B" 0} mana-costs)))
+  (let [mana-costs (reduce str (map #(get % "manaCost") cards))]
+    (reduce count-mana-freq {"R" 0 "G" 0 "U" 0 "W" 0 "B" 0} mana-costs)))
 
 (defn mana-symbol [color number]
   (let [mana-labels {"B" (fn [n] [:span.label.label-default (str n " " color)])
@@ -16,7 +16,7 @@
                      "G" (fn [n] [:span.label.label-success (str n " " color)])
                      "W" (fn [n] [:span.label.label-warning (str n " " color)])
                      "R" (fn [n] [:span.label.label-danger (str n " " color)])}]
-      ((mana-labels color) number)))
+    ((mana-labels color) number)))
 
 (defn mana-color-composition [cards]
   (let [mana-symbol-counts (get-mana-symbol-counts cards)
