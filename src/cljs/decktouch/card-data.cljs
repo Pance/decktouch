@@ -56,7 +56,7 @@
   [card-name & quantity]
   (do
     (if quantity
-      (swap! card-list add-card-quantity card-name quantity)
+      (swap! card-list add-card-quantity card-name (first quantity))
       (swap! card-list add-card-quantity card-name 1))
     (go
       (let [response (js->clj (.parse js/JSON (<! (<lookup-card-data card-name))))]
