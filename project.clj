@@ -24,8 +24,7 @@
                  [cljs-ajax "0.3.9"]
                  [org.clojure/core.async "0.1.346.0-17112a-alpha"]]
 
-  :plugins [
-            [lein-cljsbuild "1.0.4"]
+  :plugins [[lein-cljsbuild "1.0.5"]
             [lein-environ "1.0.0"]
             [lein-ring "0.9.0"]
             [lein-asset-minifier "0.2.2"]]
@@ -41,15 +40,12 @@
 
   :cljsbuild {
     :builds {
-      :app {
         :source-paths ["src/cljs"]
         :compiler {
           :output-to  "resources/public/js/app.js"
           :output-dir "resources/public/js/out"
-          :externs    ["resources/public/js/jquery-ui.js"
-                       "resources/public/js/jquery-2.1.3.min.js"]
           :optimizations :whitespace
-          :pretty-print  true}}}}
+          :pretty-print  true}}}
 
   :profiles {
     :dev {
@@ -57,27 +53,27 @@
         :init-ns decktouch.handler
         :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
 
-        :dependencies [[ring-mock "0.1.5"]
-                       [ring/ring-devel "1.3.2"]
-                       [pjstadig/humane-test-output "0.6.0"]]
+      :dependencies [[ring-mock "0.1.5"]
+                     [ring/ring-devel "1.3.2"]
+                     [pjstadig/humane-test-output "0.6.0"]]
 
-        :plugins [[lein-figwheel "0.2.0-SNAPSHOT"]]
+      :plugins [[lein-figwheel "0.2.0-SNAPSHOT"]]
 
-        :injections [(require 'pjstadig.humane-test-output)
-                     (pjstadig.humane-test-output/activate!)]
+      :injections [(require 'pjstadig.humane-test-output)
+                   (pjstadig.humane-test-output/activate!)]
 
-        :figwheel {:http-server-root "public"
-                   :server-port 3449
-                   :css-dirs ["resources/public/css"]
-                   :ring-handler decktouch.handler/app}
+      :figwheel {:http-server-root "public"
+                 :server-port 3449
+                 :css-dirs ["resources/public/css"]
+                 :ring-handler decktouch.handler/app}
 
-        :env {:dev? true}
+      :env {:dev? true}
 
-        :cljsbuild {
-          :builds {
-            :app {
-              :source-paths ["env/dev/cljs"]
-              :compiler {:output-to "resources/public/js/app.js"}}}}}
+      :cljsbuild {
+        :builds {
+          :app {
+            :source-paths ["env/dev/cljs"]
+            :compiler {:output-to "resources/public/js/app.js"}}}}}
 
     :uberjar {
       :hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
