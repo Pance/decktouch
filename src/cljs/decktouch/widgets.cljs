@@ -35,7 +35,7 @@
             (for [m (keys sorted-mana-symbol-counts)]
               (let [n (sorted-mana-symbol-counts m)]
                 (if (> n 0)
-                  [mana-symbol m n])))]
+                  ^{:key m} [mana-symbol m n])))]
       [:br]]))
 
 (defn card-counter [cards]
