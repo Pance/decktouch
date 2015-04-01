@@ -7,7 +7,12 @@
     mana-map))
 
 (defn get-mana-symbol-counts [cards]
-  (let [mana-costs (reduce str (map #(get % "manaCost") cards))]
+  (let [mana-costs
+         (reduce str
+                 (map
+                   #(reduce str
+                            (repeat (get % "quantity") (get % "manaCost")))
+                   cards))]
     (reduce count-mana-freq {"R" 0 "G" 0 "U" 0 "W" 0 "B" 0} mana-costs)))
 
 (defn mana-symbol [color number]
