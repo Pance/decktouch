@@ -33,8 +33,15 @@
                   [mana-symbol m n])))]
       [:br]]))
 
+(defn get-card-quantity [card]
+  (let [q (get card "quantity")]
+    (if (> 1 q)
+      0
+      q)))
+
 (defn card-counter [cards]
-  [:h3 [:p.text-right (count cards) " cards"]])
+  (let [card-count (reduce + (map get-card-quantity cards))]
+    [:h3 [:p.text-right card-count " cards"]]))
 
 (defn card-types [cards]
   [:div
