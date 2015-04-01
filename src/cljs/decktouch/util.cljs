@@ -11,3 +11,11 @@
             (let [c (js->clj card)]
               (is-card-of-type? c type))) cards))
 
+(defn get-card-quantity [card]
+    (let [q (get card "quantity")]
+          (if (> 1 q)
+                  0
+                        q)))
+
+(defn count-cards [cards]
+    (reduce + (map get-card-quantity cards)))

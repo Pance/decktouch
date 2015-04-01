@@ -38,19 +38,14 @@
                   [mana-symbol m n])))]
       [:br]]))
 
-(defn get-card-quantity [card]
-  (let [q (get card "quantity")]
-    (if (> 1 q)
-      0
-      q)))
-
 (defn card-counter [cards]
-  (let [card-count (reduce + (map get-card-quantity cards))]
+  (let [card-count (util/count-cards cards)]
     [:h3 [:p.text-right card-count " cards"]]))
+
 
 (defn card-types [cards]
   [:div
-    [:p.text-right (str (count (util/remove-cards-by-type cards "Creature"))) " Non-creature Spells"]
-    [:p.text-right (str (count (util/filter-cards-by-type cards "Creature"))) " Creatures"]
-    [:p.text-right (str (count (util/filter-cards-by-type cards "Land"))) " Lands"]])
+    [:p.text-right (str (util/count-cards (util/remove-cards-by-type cards "Creature"))) " Non-creature Spells"]
+    [:p.text-right (str (util/count-cards (util/filter-cards-by-type cards "Creature"))) " Creatures"]
+    [:p.text-right (str (util/count-cards (util/filter-cards-by-type cards "Land"))) " Lands"]])
 
