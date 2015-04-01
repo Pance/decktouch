@@ -1,7 +1,8 @@
 (ns decktouch.card-list
   (:require [reagent.core :as reagent]
             [decktouch.card-display :as card-display]
-            [decktouch.card-data :as card-data]))
+            [decktouch.card-data :as card-data]
+            [decktouch.util :as util]))
 
 (defn card-img [url]
   [:img {:src url
@@ -34,23 +35,13 @@
     (with-meta #(card-in-list % card-id)
                {:component-did-mount #(card-in-list-did-mount card-id)})))
 
-(defn is-card-of-type? [card type]
-  (contains? (set (get card "types")) type))
-
-(defn filter-cards-by-type [cards type]
-  (filter (fn [card] (let [c (js->clj card)]
-                       (is-card-of-type? c type))) cards))
-
-(defn remove-cards-by-type [cards type]
-  (filter #(not (is-card-of-type? % type)) cards))
-
 (defn card-type-list [cards type]
-  (let [filtered-cards-by-type (filter-cards-by-type cards type)]
+  (let [filtered-cards-by-type (util/filter-cards-by-type cards type)]
     (if (not-empty filtered-cards-by-type)
       [:div
         [:p type]
         [:ul.list-unstyled
-          (for [card (filter-cards-by-type cards type)]
+          (for [card (util/filter-cards-by-type cards type)]
                ^{:key (get card "imageName")} [card-in-list-component card])]])))
 
 (defn component [cards]
@@ -61,7 +52,7 @@
       [:div.col-md-6
         [card-type-list cards "Creature"]
         [card-type-list cards "Land"]]
-      (let [noncreature-cards (remove-cards-by-type cards "Creature")]
+      (let [noncreature-cards (util/remove-cards-by-type cards "Creature")]
         [:div.col-md-6
           [card-type-list cards "Planeswalker"]
           [card-type-list cards "Instant"]
