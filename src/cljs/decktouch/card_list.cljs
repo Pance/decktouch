@@ -33,7 +33,9 @@
 (defn card-in-list-component [card]
   (let [card-id (str (clojure.string/replace (get card "imageName") #"\W" "_"))]
     (with-meta #(card-in-list % card-id)
-               {:component-did-mount #(card-in-list-did-mount card-id)})))
+               {:component-did-mount #(do
+                                        (.log js/console (str "CARD DID MOUNT"))
+                                        (card-in-list-did-mount card-id))})))
 
 (defn card-type-list [cards type]
   (let [filtered-cards-by-type (util/filter-cards-by-type cards type)]
