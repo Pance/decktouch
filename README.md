@@ -5,4 +5,4 @@ Steps to build
 ---
 bower install
 lein cljsbuild once
-lein ?
+lein ring server
