@@ -41,7 +41,11 @@
       "Decktouch"]
     [:div#navbar.collapse.navbar-collapse
       [:ul.nav.navbar-nav
-        [:li [:a {:href "#/about"} "go to about page"]]]]])
+        ;[:li [:a {:href "#/about"} "go to about page"]]
+        [:li [:p.navbar-text.navbar-right
+               [:a.navbar-link {:href "https://github.com/Pance/decktouch"
+                                :target "_blank"}
+                 "Decktouch on Github"]]]]]])
 
 (defn current-page []
   [:div
