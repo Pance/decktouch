@@ -10,7 +10,8 @@
             [environ.core :refer [env]]
             [prone.middleware :refer [wrap-exceptions]]
             [decktouch.mtg-card-master :as mtg-card-master]
-            [clojure.data.json :as json]))
+            [clojure.data.json :as json])
+  (:gen-class))
 
 (defroutes routes
   (GET "/" [] (render-file "templates/index.html" {:dev (env :dev?)}))
@@ -27,3 +28,6 @@
 (def app
   (let [handler (wrap-reload (wrap-params routes site-defaults))]
     (if (env :dev?) (wrap-reload (wrap-exceptions handler)) handler)))
+
+(defn -main [& args]
+  (jetty/run-jetty app {:port 8080}))

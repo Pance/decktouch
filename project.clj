@@ -2,8 +2,7 @@
   :description "Build magic card deck lists easily."
   :url ""
 
-  :source-paths ["src/clj" "src/cljs"]
-  :test-paths ["test/clj" "test/cljs"]
+  :min-lein-version "2.5.0"
 
   :dependencies [[org.clojure/clojure "1.6.0"]
                  [reagent "0.5.0"]
@@ -30,9 +29,11 @@
             [lein-asset-minifier "0.2.2"]]
 
   :ring {:handler decktouch.handler/app
-         :uberwar-name "decktouch.war"}
+         :uberwar-name "decktouch.war"
+         :port 8080}
 
-  :min-lein-version "2.5.0"
+  :source-paths ["src/clj" "src/cljs"]
+  :test-paths ["test/clj" "test/cljs"]
 
   :uberjar-name "decktouch.jar"
 
@@ -85,7 +86,7 @@
                   :builds {
                     :app {:source-paths ["env/prod/cljs"]
                           :compiler {
-                            :optimizations :advanced
+                            :optimizations :whitespace
                             :pretty-print false}}}}}
 
     :production {
