@@ -1,1 +1,1 @@
-web: lein trampoline ring server $PORT
+web: java -jar target/decktouch.jar
