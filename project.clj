@@ -32,6 +32,8 @@
          :uberwar-name "decktouch.war"
          :port 8080}
 
+  :main decktouch.handler
+
   :source-paths ["src/clj" "src/cljs"]
   :test-paths ["test/clj" "test/cljs"]
 
