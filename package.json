@@ -1,9 +1,11 @@
 {
   "name": "decktouch",
-  "dependencies": {},
-  "devDependencies": {
+  "dependencies": {
     "bower": "^1.4.1"
   },
-  "postinstall": "bower install",
+  "devDependencies": {},
+  "scripts": {
+    "postinstall": "bower cache clean && bower install"
+  },
   "author": "pance"
 }
