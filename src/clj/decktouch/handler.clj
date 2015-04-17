@@ -30,4 +30,6 @@
     (if (env :dev?) (wrap-reload (wrap-exceptions handler)) handler)))
 
 (defn -main [& args]
-  (jetty/run-jetty app {:port 8080}))
+  (jetty/run-jetty app {:port (if (nil? (first args))
+                                8080
+                                (Integer/parseInt (first args)))}))
