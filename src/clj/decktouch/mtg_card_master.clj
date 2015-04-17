@@ -17,14 +17,14 @@
 (def card-multiverseids
   (filter #(not (nil? (get % "multiverseId")))
     (flatten
-      (let [all-sets (json/read-str (slurp "resources/AllSets.json"))]
+      (let [all-sets (json/read-str (slurp "http://mtgjson.com/json/AllSets.json"))]
         (for [set-code (keys all-sets)]
           (for [set-card (get (get all-sets set-code) "cards")]
             {"name"         (set-card "name")
              "multiverseId" (set-card "multiverseid")}))))))
 
 (def mtg-cards
-  (let [allcards (json/read-str (slurp "resources/AllCards.json"))]
+  (let [allcards (json/read-str (slurp "http://mtgjson.com/json/AllCards.json"))]
     (reduce add-multiverseid-to-card-in-map allcards card-multiverseids)))
 
 (def card-names (keys mtg-cards))
