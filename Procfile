@@ -1,1 +1,1 @@
-web: java -jar target/decktouch.jar
+web: lein ring server $PORT
