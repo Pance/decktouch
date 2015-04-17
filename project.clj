@@ -80,7 +80,7 @@
             :compiler {:output-to "resources/public/js/app.js"}}}}}
 
     :uberjar {
-      :hooks [leiningen.cljsbuild minify-assets.plugin/hooks]
+      :hooks [leiningen.cljsbuild]
       :env {:production true}
       :aot :all
       :omit-source true
